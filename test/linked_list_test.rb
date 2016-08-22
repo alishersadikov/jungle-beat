@@ -8,7 +8,10 @@ class LinkedListTest < Minitest::Test
   def test_its_head_equals_nil
     list = LinkedList.new
 
-    assert_equal nil, list.head
+    expected = nil
+    actual = list.head
+
+    assert_equal expected, actual
   end
 
   def test_it_appends_data
@@ -84,9 +87,35 @@ class LinkedListTest < Minitest::Test
     list.append("shu")
     list.append("blop")
 
+    assert_equal "deep woo shi shu blop", list.to_string
     assert_equal "shi", list.find(2, 1)
+    assert_equal "blop", list.find(4, 1)
+    assert_equal "shi shu blop", list.find(2, 3)
+    assert_equal  "woo shi shu blop", list.find(1, 4)
+  end
 
-  end 
+  def test_it_include_method_works
+    list = LinkedList.new
+    list.append("deep")
+    list.append("woo")
+    list.append("shi")
+    list.append("shu")
+    list.append("blop")
+    assert list.includes?("shu")
+    refute list.includes?("bla")
 
+  end
 
+  def test_it_pops_data
+    list = LinkedList.new
+    list.append("deep")
+    list.append("woo")
+    list.append("shi")
+    list.append("shu")
+    list.append("blop")
+
+    assert_equal "blop", list.pop
+    assert_equal 1, list.to_string
+
+  end
 end

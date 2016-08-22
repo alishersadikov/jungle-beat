@@ -43,6 +43,45 @@ attr_reader :head
       previous_node.next_node = new_node
   end
 
+  def find(index, quantity)
+    # edge case check for list length vs index + quantity
+    # node_counter = 0
+    current_node = @head
+    output = ""
+    # step to the index in the list
+    index.times do
+      current_node = current_node.next_node
+    end
+    # grab as many words as is in quantity
+    quantity.times do
+      output << current_node.data + " "
+      current_node = current_node.next_node
+    end
+    output.chop
+  end
+
+  def includes?(data)
+    current_node = @head
+    is_it_here = false
+    until  current_node.next_node == nil
+      if current_node.data == data
+        is_it_here = true
+      end
+      current_node = current_node.next_node
+    end
+    is_it_here
+  end
+
+  def pop
+    current_node = @head
+    while current_node.next_node.next_node != nil
+      removed_sound = current_node.next_node.data
+      current_node.next_node = nil
+      current_node = current_node.next_node if current_node.next_node
+    end
+     removed_sound
+  end
+
   def count
     if @head == nil
       "No data!"
