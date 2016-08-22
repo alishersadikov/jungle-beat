@@ -35,23 +35,17 @@ class LinkedListTest < Minitest::Test
 
     assert_equal "doop", list.to_string
   end
-end
 
-# def test_it_looks_the_way_it_is_expected
-#   list = LinkedList.new
-#
-# end
-# > list = LinkedList.new
-# => <LinkedList head=nil #45678904567>
-# > list.head
-# => nil
-# > list.append("doop")
-# => "doop"
-# > list
-# => <LinkedList head=<Node data="doop" next_node=nil #5678904567890> #45678904567>
-# > list.head.next_node
-# => nillist
-# > list.count
-# => 1
-# > list.to_string
-# => "doop"
+  def test_it_appends_the_second_node
+    list = LinkedList.new
+    list.append("doop")
+
+    assert_equal nil, list.head.next_node
+    list.append("deep")
+
+    assert list.head.next_node
+
+    assert_equal 2, list.count
+    assert_equal "doop deep", list.to_string
+  end
+end

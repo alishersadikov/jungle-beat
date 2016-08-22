@@ -8,7 +8,16 @@ attr_reader :head
   end
 
   def append(data)
-    @head = Node.new(data)
+    if @head == nil
+      @head = Node.new(data)
+    else
+      current_node = @head
+      while current_node.next_node != nil
+        current_node = current_node.next_node
+      end
+      current_node.next_node = Node.new(data)
+    end
+
   end
 
   def count
@@ -26,6 +35,12 @@ attr_reader :head
   end
 
   def to_string
-    @head.data
+    current_node = @head
+    all_data = ""
+      while current_node.next_node != nil
+        all_data << current_node.data + " "
+        current_node = current_node.next_node
+      end
+      all_data << current_node.data
   end
 end
