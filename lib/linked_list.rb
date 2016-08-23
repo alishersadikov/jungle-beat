@@ -9,59 +9,61 @@ attr_reader :head
     @valid = false
   end
 
-  def valid?(data)
-    if @valid_beats.include?(data)
+  def valid?(sound)
+    if @valid_beats.include?(sound)
       @valid = true
     else
       @valid = false
     end
   end
 
-  def append(data)
-    if valid?(data)
+  def append(sound)
+    if valid?(sound)
       if @head == nil
-        @head = Node.new(data)
-        data
+        @head = Node.new(sound)
+        sound
       else
         current_node = @head
         while current_node.next_node != nil
           current_node = current_node.next_node
         end
-        current_node.next_node = Node.new(data)
-        data
+        current_node.next_node = Node.new(sound)
+        sound
       end
     else
       "Beat not valid!"
     end
   end
 
-  def prepend(data)
-    if valid?(data)
+  def prepend(sound)
+    if valid?(sound)
       if @head == nil
-        @head = Node.new(data)
+        @head = Node.new(sound)
       else
-        current_node = Node.new(data)
+        current_node = Node.new(sound)
         current_node.next_node = @head
         @head = current_node
       end
+      sound
     else
       "Beat not valid!"
     end
   end
 
-  def insert(index, data)
-    if valid?(data)
+  def insert(index, sound)
+    if valid?(sound)
       node_counter = 0
       current_node = @head
       while node_counter != index - 1
         current_node = current_node.next_node
         node_counter += 1
       end
-        new_node = Node.new(data)
+        new_node = Node.new(sound)
         previous_node = current_node
         current_node = current_node.next_node
         new_node.next_node = current_node
         previous_node.next_node = new_node
+        sound
     else
       "Beat not valid!"
     end
@@ -84,11 +86,11 @@ attr_reader :head
     output.chop
   end
 
-  def includes?(data)
+  def includes?(sound)
     current_node = @head
     is_it_here = false
     until  current_node.next_node == nil
-      if current_node.data == data
+      if current_node.data == sound
         is_it_here = true
       end
       current_node = current_node.next_node
