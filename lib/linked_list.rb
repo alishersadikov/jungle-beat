@@ -5,44 +5,66 @@ attr_reader :head
 
   def initialize
     @head = nil
-    @valid_beats = a = %w| blop boop bop dah dee deep ding ditt doo doop dop hoo la na oom plop shi shu suu tee woo |
+    @valid_beats = a = %w| blop boop bop dah dee deep ding ditt doo doom doop dop hoo la na oom plop shi shu suu tee woo |
+    @valid = false
+  end
 
+  def valid?(data)
+    if @valid_beats.include?(data)
+      @valid = true
+    else
+      @valid = false
+    end
   end
 
   def append(data)
-    if @head == nil
-      @head = Node.new(data)
-    else
-      current_node = @head
-      while current_node.next_node != nil
-        current_node = current_node.next_node
+    if valid?(data)
+      if @head == nil
+        @head = Node.new(data)
+        data
+      else
+        current_node = @head
+        while current_node.next_node != nil
+          current_node = current_node.next_node
+        end
+        current_node.next_node = Node.new(data)
+        data
       end
-      current_node.next_node = Node.new(data)
+    else
+      "Beat not valid!"
     end
   end
 
   def prepend(data)
-    if @head == nil
-      @head = Node.new(data)
+    if valid?(data)
+      if @head == nil
+        @head = Node.new(data)
+      else
+        current_node = Node.new(data)
+        current_node.next_node = @head
+        @head = current_node
+      end
     else
-      current_node = Node.new(data)
-      current_node.next_node = @head
-      @head = current_node
+      "Beat not valid!"
     end
   end
 
   def insert(index, data)
-    node_counter = 0
-    current_node = @head
-    while node_counter != index - 1
-      current_node = current_node.next_node
-      node_counter += 1
+    if valid?(data)
+      node_counter = 0
+      current_node = @head
+      while node_counter != index - 1
+        current_node = current_node.next_node
+        node_counter += 1
+      end
+        new_node = Node.new(data)
+        previous_node = current_node
+        current_node = current_node.next_node
+        new_node.next_node = current_node
+        previous_node.next_node = new_node
+    else
+      "Beat not valid!"
     end
-      new_node = Node.new(data)
-      previous_node = current_node
-      current_node = current_node.next_node
-      new_node.next_node = current_node
-      previous_node.next_node = new_node
   end
 
   def find(index, quantity)

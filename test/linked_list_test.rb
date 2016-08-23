@@ -20,6 +20,7 @@ class LinkedListTest < Minitest::Test
 
     assert_equal "doop", list.head.data
     assert_equal nil, list.head.next_node
+    assert_equal "Beat not valid!", list.append("xxx")
   end
 
   def test_it_counts_data
