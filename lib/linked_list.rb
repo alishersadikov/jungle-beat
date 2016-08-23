@@ -5,6 +5,8 @@ attr_reader :head
 
   def initialize
     @head = nil
+    @valid_beats = a = %w| blop boop bop dah dee deep ding ditt doo doop dop hoo la na oom plop shi shu suu tee woo |
+
   end
 
   def append(data)
