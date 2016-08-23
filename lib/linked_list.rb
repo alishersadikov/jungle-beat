@@ -72,14 +72,19 @@ attr_reader :head
     is_it_here
   end
 
-  def pop
-    current_node = @head
-    while current_node.next_node.next_node != nil
-      removed_sound = current_node.next_node.data
+  def pop(num = 1)
+    removed_sound = []
+
+    num.times do
+      current_node = @head
+      while current_node.next_node.next_node != nil
+        current_node = current_node.next_node
+        # require 'pry'; binding.pry
+      end
+      removed_sound << current_node.next_node.data
       current_node.next_node = nil
-      current_node = current_node.next_node if current_node.next_node
     end
-     removed_sound
+    removed_sound.reverse.join(' ')
   end
 
   def count
