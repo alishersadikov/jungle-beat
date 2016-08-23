@@ -115,7 +115,8 @@ class LinkedListTest < Minitest::Test
     list.append("blop")
 
     assert_equal "blop", list.pop
-    assert_equal 'deep woo shi shu', list.to_string
-    assert_equal "shi shu", list.pop(5)
+    assert_equal "deep woo shi shu", list.to_string
+    assert_equal "shi shu", list.pop(2)
+    assert_equal "deep woo", list.to_string
   end
 end

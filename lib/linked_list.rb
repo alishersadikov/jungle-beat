@@ -74,7 +74,6 @@ attr_reader :head
 
   def pop(num = 1)
     removed_sound = []
-
     num.times do
       current_node = @head
       while current_node.next_node.next_node != nil
