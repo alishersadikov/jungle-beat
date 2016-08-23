@@ -7,11 +7,10 @@ class LinkedListTest < Minitest::Test
 
   def test_its_head_equals_nil
     list = LinkedList.new
-
     expected = nil
     actual = list.head
 
-    assert_equal expected, actual
+    assert_equal nil, actual
   end
 
   def test_it_appends_data
@@ -104,7 +103,6 @@ class LinkedListTest < Minitest::Test
     list.append("blop")
     assert list.includes?("shu")
     refute list.includes?("bla")
-
   end
 
   def test_it_pops_data

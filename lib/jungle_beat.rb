@@ -7,7 +7,7 @@ class JungleBeat
 
   def append(string)
     sounds = string.split
-    sounds.map { |sound| @list.append(sound).data }.join(" ")
+    sounds.map { |sound| @list.append(sound) }.join(" ")
   end
 
   def count
