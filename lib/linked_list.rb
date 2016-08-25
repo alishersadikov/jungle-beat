@@ -1,11 +1,9 @@
-require_relative 'node'
-
 class LinkedList
-attr_reader :head
+attr_reader :head, :valid, :valid_beats
 
   def initialize
     @head = nil
-    @valid_beats = a = %w| blop boop bop dah dee deep ding ditt doo doom doop dop hoo la na oom plop shi shu suu tee woo |
+    @valid_beats = %w| blop boop bop dah dee deep ding ditt doo doom doop dop hoo la na oom plop shi shu suu tee woo |
     @valid = false
   end
 
@@ -21,14 +19,14 @@ attr_reader :head
     if valid?(sound)
       if @head == nil
         @head = Node.new(sound)
-        sound
+        @head.data
       else
         current_node = @head
         while current_node.next_node != nil
           current_node = current_node.next_node
         end
         current_node.next_node = Node.new(sound)
-        sound
+        current_node.next_node.data
       end
     else
       "Beat not valid!"
@@ -39,12 +37,13 @@ attr_reader :head
     if valid?(sound)
       if @head == nil
         @head = Node.new(sound)
+        @head.data
       else
         current_node = Node.new(sound)
         current_node.next_node = @head
         @head = current_node
       end
-      sound
+      current_node.data
     else
       "Beat not valid!"
     end
@@ -63,22 +62,18 @@ attr_reader :head
         current_node = current_node.next_node
         new_node.next_node = current_node
         previous_node.next_node = new_node
-        sound
+        new_node.data
     else
       "Beat not valid!"
     end
   end
 
   def find(index, quantity)
-    # edge case check for list length vs index + quantity
-    # node_counter = 0
     current_node = @head
     output = ""
-    # step to the index in the list
     index.times do
       current_node = current_node.next_node
     end
-    # grab as many words as is in quantity
     quantity.times do
       output << current_node.data + " "
       current_node = current_node.next_node
@@ -98,18 +93,17 @@ attr_reader :head
     is_it_here
   end
 
-  def pop(num = 1)
-    removed_sound = []
-    num.times do
+  def pop(quantity = 1)
+    removed = ""
+    quantity.times do
       current_node = @head
       while current_node.next_node.next_node != nil
         current_node = current_node.next_node
-        # require 'pry'; binding.pry
       end
-      removed_sound << current_node.next_node.data
+      removed << current_node.next_node.data + " "
       current_node.next_node = nil
     end
-    removed_sound.reverse.join(' ')
+    removed.split.reverse.join(" ")
   end
 
   def count
@@ -128,11 +122,12 @@ attr_reader :head
 
   def to_string
     current_node = @head
-    all_data = ""
+    all_sounds = ""
       while current_node.next_node != nil
-        all_data << current_node.data + " "
+        all_sounds << current_node.data + " "
         current_node = current_node.next_node
       end
-      all_data << current_node.data
+      all_sounds << current_node.data
+      all_sounds
   end
 end

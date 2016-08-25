@@ -1,11 +1,14 @@
-require 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
 require './lib/node'
 
 class NodeTest < Minitest::Test
 
-  def test_it_can_pull_data_from_node
+  def test_node_data_is_nil_at_start
+    node = Node.new
+    assert_equal nil, node.data
+  end
+
+  def test_it_stores_and_pulls_data_from_node
     node = Node.new("plop")
     assert_equal "plop", node.data
   end
